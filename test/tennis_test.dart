@@ -1,11 +1,75 @@
-import 'package:tennis/tennis.dart';
 import 'package:test/test.dart';
 
 void main() {
 
-  test('cuando el partido comienza debe dar 0 - 0', (){
-  }); 
+  late Partido partido;
+  setUp(() => partido =Partido());
+
+  test('cuando el partido comienza debe dar 0 - 0 LOVE', (){
+    expect(partido.marcador, equalsIgnoringCase('LOVE'));
+  });
+
+  test('Inicia y el jugador1 anota => 15-LOVE', () {
+    partido.puntoPara(Jugador.p1);
+    expect(partido.marcador, equalsIgnoringCase('15-LOVE'));
+    
+  });
+  test('si van empatados a 15 => 15-15', () {
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  expect(partido.marcador, equalsIgnoringCase('15-15'));
+  });
+
+  test('si van 40  a 40 => DEUCE', () {
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+
+  expect(partido.marcador, equalsIgnoringCase('DEUCE'));
+    
+  });
   
+  test('si van 60 a 60 => DEUCE', () {
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+
+  expect(partido.marcador, equalsIgnoringCase('DEUCE'));
+    
+  });
+
+  test('Si vamos 50-60 => Advantaje P2', () {
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p2);    
+  });
+ expect(partido.marcador, equalsIgnoringCase('Advantaje 2'));
+
+ test('si van 40-15 y anota el 1 gana => Victoria 1', () {
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p1);
+  partido.puntoPara(Jugador.p2);
+  partido.puntoPara(Jugador.p1);
+
+  expect(partido.marcador, equalsIgnoringCase('Victoria 1'));
+   
+ });
+
 }
 
 
